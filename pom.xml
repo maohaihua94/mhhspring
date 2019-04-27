@@ -13,7 +13,6 @@
         <module>spring-mvc</module>
         <module>spring</module>
         <module>spring-base</module>
-        <module>datasource</module>
     </modules>
 
     <properties>
