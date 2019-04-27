@@ -12,6 +12,7 @@
     <modules>
         <module>spring-base</module>
         <module>spring-mvc</module>
+        <module>spring</module>
     </modules>
 
     <properties>
