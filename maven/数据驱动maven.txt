@@ -1,0 +1,26 @@
+ojdbc6.jar：支持JDK6，支持JDBC 4.0，新的java.sql.SQLXML类型没有被支持。
+<dependency>
+    <groupId>com.oracle</groupId>
+    <artifactId>ojdbc</artifactId>
+    <version>6</version>
+</dependency>
+
+ojdbc14.jar     适用于JDK 1.4
+<dependency>
+    <groupId>ojdbc</groupId>
+    <artifactId>ojdbc</artifactId>
+    <version>14</version>
+</dependency>
+
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>6.0.6</version>
+</dependency>
+
+
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.1.4</version>
+</dependency>

@@ -1,0 +1,67 @@
+
+1、maven
+<properties>
+	<spring.version>4.3.15.RELEASE</spring.version>
+</properties>
+
+
+<!--Spring web-->
+<dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-web</artifactId>
+	<version>${spring.version}</version>
+</dependency>
+
+<dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-webmvc</artifactId>
+	<version>${spring.version}</version>
+</dependency>
+
+2、spring配置文件
+
+2.1 加context的xsd
+
+2.2 bean扫描
+<!-- 启用注解扫描，并定义组件查找规则 ，mvc层只负责扫描@Controller、@ControllerAdvice -->
+<!-- base-package 如果多个，用“,”分隔 -->
+<context:component-scan base-package="cn.edu.tju.rico"
+	use-default-filters="false">
+	<!-- 扫描@Controller -->
+	<context:include-filter type="annotation"
+		expression="org.springframework.stereotype.Controller" />
+	<!--控制器增强，使一个Contoller成为全局的异常处理类，类中用@ExceptionHandler方法注解的方法可以处理所有Controller发生的异常 -->
+	<context:include-filter type="annotation"
+		expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+</context:component-scan>
+
+2.3 路径配置
+<!--启动注解扫描 扫描请求路径-->
+<mvc:annotation-driven/>
+
+<!--根路径请求 配置-->
+<mvc:view-controller path="/" view-name="index2"/>
+
+<!-- 静态资源请求 配置 -->
+<mvc:resources location="/page/" mapping="/page/**"></mvc:resources>
+
+<!--视图路径-->
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix" value="/page/index/"></property>
+	<property name="suffix" value=".jsp"></property>
+</bean>
+
+3、web.xml配置servlet拦截
+<servlet>
+	<servlet-name>springmvc</servlet-name>
+	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<init-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:spring/applicationContext-mvc.xml</param-value>
+	</init-param>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>springmvc</servlet-name>
+	<url-pattern>/</url-pattern>
+</servlet-mapping>

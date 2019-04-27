@@ -1,0 +1,66 @@
+
+1、maven依赖
+<properties>
+	<spring.version>4.3.15.RELEASE</spring.version>
+</properties>
+
+
+<dependencies>
+	<!--Spring 基本核心工具类-->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+
+    <!--Spring Bean ioc-->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+
+    <!--Spring Bean扩展 ApplicationContext-->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+</dependencies>
+
+
+2、spring配置文件
+自动扫描
+加context的xsd
+<context:component-scan base-package="com.example">
+	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+</context:component-scan>
+org.springframework.stereotype.Controller
+org.springframework.stereotype.service
+org.springframework.stereotype.Component
+
+
+3、bean调用
+
+3.1 java SE
+BeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("spring\\applicationContext-base.xml"));
+HelloWorld helloWorld = (HelloWorld) beanFactory.getBean("helloWorld");
+helloWorld.hello();
+
+
+ApplicationContext ac = new ClassPathXmlApplicationContext("spring\\applicationContext-base.xml");
+HelloWorld helloWorld = (HelloWorld) ac.getBean("helloWorld");
+helloWorld.hello();
+
+3.2 java EE 
+web.xml 配置spring全局容器
+
+<listener>
+	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+</listener>
+
+<context-param>
+	<param-name>contextConfigLocation</param-name>
+	<param-value>classpath*:spring/applicationContext-base.xml</param-value>
+</context-param>
+
